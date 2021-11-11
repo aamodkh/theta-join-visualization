@@ -1,4 +1,4 @@
-# Put the JavaScript code you write in this folder
+# This folder contains JavaScript codes
 
 We recommend you separate the implementation details for individual visualizations using the [Reusable Charts](https://bost.ocks.org/mike/chart/) framework Mike Bostock advocates.
 Broadly this means implementing visualizations as closures with getter-setter methods.

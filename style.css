@@ -8,7 +8,9 @@ body {
 h1, h2, h3 {
 	line-height: 1.2
 }
-
+p, ul {
+	text-align: justify;
+}
 /* Your text should be in a nice narrow column */
 .content-column {
 	max-width: 650px;
@@ -19,46 +21,121 @@ h1, h2, h3 {
 .vis-holder {
   width: 100%;
   height: 100%;
-  display: flex;
 }
 
-/* The line chart will take the left half of the screen */
-.linechart-holder {
-  flex: 0 0 100%;
+.vis-svg {
+	background-color: #f4f1f0;
 }
 
-/* The scatterplot will take the right half of the screen */
+.vis-setting {
+	text-align: center;
+	padding: 5px;
+	margin: 5px auto;
+}
+
+.parameter-label {
+	user-select: none;
+	font-weight: bold;
+}
+
+#error-k{
+	display: block;
+	color: red;
+	font-weight: bold;
+}
+
+#error-k-2{
+	display: block;
+	color: red;
+	font-weight: bold;
+}
+
+.vis-chart {
+	display: flex;
+	align-items:center;
+}
+
+.single-ranking {
+	width: 60%;
+	text-align: center;
+	max-height: 600px;
+	overflow: auto;
+}
+
+.node-label {
+	user-select: none;
+}
+
 .scatterplot-holder {
-  flex: 1;
+	flex: auto;
+}
+
+.equation {
+	user-select: none;
 }
 
 /* Default style for marks and channels used */
 .point {
-  fill: white;
-  stroke: #69b3a2;
-  stroke-width: 3;
+  fill: none;
+  stroke: #3FB213;
+  stroke-width: 1;
+  opacity: 1;
 }
 
-.linePath {
-  fill: none;
-  stroke: black;
-  stroke-width: 1.5;
+/* Style for selected marks (circles) */
+circle.selected {
+  fill: pink;
+   fill-opacity:0.8;
+  stroke: red;
+  opacity: 0.8;
 }
 
 .axisLabel {
   fill: #475d7c;
 }
 
-/* Style for selected marks (circles) */
-circle.selected {
-  fill: pink;
-  stroke: red;
-  opacity: .5;
+button {
+	height: 25px;
+	color: white;
+	background: dodgerblue;
+	border-radius: 5px;
+	border: none;
 }
 
-/* Style for selected marks (table rows) */
-tr.selected {
-  background-color: pink;
+#addFunctionButton {
+	width: 200px;
+	margin: 10px 0 0 0;
+}
+
+.ranking {
+	text-align: center;
+	width: 33%; /* each ranking uses about 1/3 of the width */
+	height: 100%;
+	border-collapse: collapse;
+	max-height: 600px;
+	overflow: auto;
+	-ms-overflow-style:none;/*IE10+*/
+	
+}
+
+.deleteButton {
+	width: 60px;
+	background: red;
+	margin: 0 0 0 20px;
+}
+
+.slider{
+	overflow: hidden;
+	margin: 0 10px 0 10px;
+	display: table-row;
+	width: 15%; /*as there are three sliders in same row*/
+}
+
+.table-holder {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	border-collapse: collapse;
 }
 
 /* Pretty table layout */
@@ -69,11 +146,14 @@ table {
   border-spacing: 0 0;
   text-align: right;
   margin: 0 auto;
+  height: auto;
 }
 
 th, td {
   /* vertical | horizontal */
-  padding: 0 8px;
+  padding: 0;
+  text-align: center;
+  width: 35px;
 }
 
 /* Don't also do text drag selection */
@@ -89,13 +169,37 @@ table.text-unselectable {
 }
 
 /* Recreate the D3 brush style... */
-tr.mouseover {
+tr.mouseover{
   background-color: #d6d6d6;
+}
+
+tr.selected{
+  background-color: pink;
 }
 
 /* ...but add a darker selected and brushed color. */
 tr.mouseover.selected{
-  background-color: #e08fa3;
+  background-color:#e08fa3; ;
+}
+
+td.selected{
+  background-color: pink;
+}
+
+td.mouseover.selected{
+  background-color:#e08fa3; ;
+}
+
+.details {
+	font-weight: bold;
+}
+
+.tooltip {
+	font-weight: bold;
+	color: white;
+	position: relative;
+	top: 3px;
+	height: 0px;
 }
 
 /* Fork on GitHub ribbon via https://codepo8.github.io/css-fork-on-github-ribbon/# */  

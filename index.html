@@ -3,63 +3,159 @@
 
 <!-- Metadata -->
 <head>
-  <meta charset='utf-8'>
+	<meta charset='utf-8'>
 
-  <!-- Title -->
-  <title>Assignment: D3 Event Handling</title>
+	<!-- Title -->
+	<title>Project Group 02: Visualizing Ranked Theta-Join Results, CS 7250 S21</title>
 
-  <!-- CSS Styling -->
-  <link rel='stylesheet' href='style.css'>
+	<!-- CSS Styling -->
+	<link rel='stylesheet' href='style.css'>
 
-  <!-- Favicons -->
-  <link rel='apple-touch-icon' sizes='180x180' href='favicons/apple-touch-icon.png'>
-  <link rel='icon' type='image/png' sizes='32x32' href='favicons/favicon-32x32.png'>
-  <link rel='icon' type='image/png' sizes='16x16' href='favicons/favicon-16x16.png'>
-  <link rel='manifest' href='favicons/site.webmanifest'>
-  <link rel='shortcut icon' href='favicons/favicon.ico'>
-  <meta name='msapplication-TileColor' content='#da532c'>
-  <meta name='msapplication-config' content='favicons/browserconfig.xml'>
-  <meta name='theme-color' content='#ffffff'>
+	<!-- Favicons -->
+	<link rel='apple-touch-icon' sizes='180x180' href='favicons/apple-touch-icon.png'>
+	<link rel='icon' type='image/png' sizes='32x32' href='favicons/favicon-32x32.png'>
+	<link rel='icon' type='image/png' sizes='16x16' href='favicons/favicon-16x16.png'>
+	<link rel='manifest' href='favicons/site.webmanifest'>
+	<link rel='shortcut icon' href='favicons/favicon.ico'>
+	<meta name='msapplication-TileColor' content='#da532c'>
+	<meta name='msapplication-config' content='favicons/browserconfig.xml'>
+	<meta name='theme-color' content='#ffffff'>
 </head>
 
 <!-- Main page content -->
 <body>
 
-  <!-- Update this with your GitHub repo URL -->
-  <span id='forkongithub'><a href='https://github.com/NEU-CS-7250-S21-Staff/Assignment--D3_Event_Handling'>Fork me on GitHub</a></span>
+	<!-- Update this with your GitHub repo URL -->
+	<span id='forkongithub'><a href='https://github.com/ak53amod/theta-join-visualization'>Fork me on GitHub</a></span>
 
-  <!-- Writeup -->
-  <div class='content-column'>
-    <h1>Assignment: D3 event handling</h1>
+	<!-- Writeup -->
+	<div class='content-column'>
+		<h1>Project Group 02: Visualizing Ranked Theta-Join Results, CS 7250 S21</h1>
 
-    <p>
-      Implement an event on the yellow square in this visualization so that when it is clicked, the **circle** changes color to **red**.
-    </p>
+		<p><strong>Zixuan Chen</strong>, <strong>Aamod Khatiwada</strong>
 
-    <!-- Visualization goes here -->
-    <div class='vis-holder' id='vis'></div>
+		<p>Service-Learning Course Project as part of
+		<a href='https://northeastern.instructure.com/courses/63405'>CS 7250 S21 Information Visualization: Theory and Applications</a>, 
+		taught by <a href='https://cody.khoury.northeastern.edu/'>Prof. Cody Dunne</a>, 
+		<a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>, 
+		<a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>.</p>
 
-    <h2>Acknowledgments</h2>
 
-    <p>
-      <em>List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.</em>
-    </p>
+		<h1>Abstract</h1>
 
-    <ul>
-      <li><a href='https://d3js.org/'>
-        D3: Data-Driven Documents</a>
-        by Mike Bostock is used for manipulating the DOM to create visualizations.
-      </li>
-      <li><a href='https://codepo8.github.io/css-fork-on-github-ribbon/#'>
-        Pure CSS responsive 'Fork me on GitHub' ribbon</a>
-        by Chris Heilmann is used to create the banner that links back to the source code repository.
-      </li>
-    </ul>
-  </div>
+		<p>Ranked enumeration over joins begins to attract attention recently. A ranked enumeration algorithm uses a ranking function to rank join results. Given different ranking functions, different ranking results will be generated. Knowing the influence of a certain ranking function and why some results are ranked at the top is helpful for understanding the joins and rankings. We propose a visualization tool to assist data management researchers in having a deeper understanding of these rankings. Our visualization enables researchers to easily find out why certain results are ranked top and compare multiple rankings to get insights.</p>
+	</div>
 
-  <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
-  <script src='lib/d3.v6.1.1/d3.min.js'></script>
-  <script src='js/main.js'></script>
+	<div class="content-column">
+		<h1>Visualization 1 — Single Ranking</h1>
+		<p>This visualization provides insights about a single ranking. It aims to help users understand why certain results are at the top of the ranking. In the following, we introduce how this visualization works:</p>
+		<ul>
+			<li>
+				On the left side, the visualization presents the ranking. The ranking shows top-K results in terms of the ranking function f. The odd columns show the node id (corresponding to table in the theta-join background) and the even columns show the edge connecting two nodes where its width is used to represent the edge weight (corresponding to link strength between tables in the theta-join background), and the luminance of its color is used to show the importance of this column (e.g., α, β, γ parameters in the linear ranking function). Visualization interactions:
+				<ul>
+					<li>Change the number of K to set the row count in the ranking</li>
+					<li>Change the order to choose whether the lightest path or the heaviest path</li>
+					<li>Use the slide bars to set the parameters of the ranking function</li>
+					<li>Hover over one row to show the detailed weight calculation (the number above the edge is the weight * parameter) and click on one row to highlight</li>
+					<li>Double click on one edge to show all appearances of it in the ranking</li>
+					<li>Brush some consecutive rows to highlight them all</li>
+				</ul>
+			</li>
+			<li>
+				On the right side, the visualization presents a scatterplot which shows the total weight distribution against the weight of edges in each column. Users can set which edge to be focused on and brush the nodes to highlight. Note that for each node, there is a small random offset to keep it from overlapping too much with others.
+			</li>
+			<li>
+				All highlight interactions including clicking, double clicking, brushing link the ranking and the scatterplot.
+			</li>
+		</ul>
+	</div>
+
+	<div class="vis-holder">
+		<div class="vis-setting">
+			<label class="parameter-label">K :&nbsp;&nbsp;&nbsp;</label>
+			<input type="number" step="1" min="1" max="500" value="100" id="single-value-k">
+			<br/>
+			<span id="error-k"><br/></span>
+			<label class="parameter-label">Order :&nbsp;</label>
+			<select id="single-order-selection">
+				<option value="desc" selected>Descending</option>
+				<option value="asc">Ascending</option>
+			</select>
+		</div>
+		<div class="vis-chart">
+			<div id="single-table-div"></div>
+			<div class='scatterplot-holder' id='scatterplot'>
+        <input type="radio" name="node-scatterplot" class="node-scatterplot" value="1" id="node-scatterplot1" checked>&nbsp;<span class="node-label">Edge 1</span>
+        <input type="radio" name="node-scatterplot" class="node-scatterplot" value="2" id="node-scatterplot2" >&nbsp;<span class="node-label">Edge 2</span>
+        <input type="radio" name="node-scatterplot" class="node-scatterplot" value="3" id="node-scatterplot3" >&nbsp;<span class="node-label">Edge 3</span>   
+      </div>
+		</div>
+	</div>
+	
+	<div class="content-column">
+		<h1>Visualization 2 — Multiple Rankings</h1> 
+		<p>This visualization provides insights about multiple rankings. It is easy the observe what will happen if the parameters of the ranking function is changed. Users can create and delete rankings (at most 3), and use brushing and linking to see the position of a path in different rankings. One single ranking here is the same as the one in Visualization 1.
+		</p>
+	</div>
+	
+	<div class='vis-holder'>
+		<!--Since table cannot be appended in svg, we created a new div for table-->
+		<div class="vis-setting">
+			<label class="parameter-label">K :&nbsp;&nbsp;&nbsp;</label>
+			<input type="number" step="1" min="1" max="100" value="10" id="value-k">
+			<br/>
+			<span id="error-k-2"><br/></span>
+			<button id="addFunctionButton">Create a new ranking</button>
+		</div>
+		<div class="vis-chart">
+			<div class="table-holder">
+			  <div id="table-div0"></div>
+			  <div id="table-div1"></div>
+			  <div id="table-div2"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Further writeup -->
+	<div class = 'content-column'>
+
+		<h1>Demo Video</h1>
+
+		<p>Here is a short demonstration video of our interactive visualization. This video introduces the encodings, data and interactions of these visualizations briefly.</p>
+
+		<video controls width='100%'>
+		  <source src='files/video.mp4' type='video/mp4'>
+		  <p>Your browser doesn't support HTML5 video. Here is
+		   a <a href='files/video.mp4'>link to the video</a> instead.</p>
+		</video>
+
+		<h1>Visualization explanation</h1>
+
+		<p>Explanations included in the above parts for Visualization 1 and 2 respectively. Here is the <a href='https://docs.google.com/presentation/d/1gtVEIwBwWzoJ6WOdH_67MMYI6nd76qPTZ3BZ3XAglKM/edit?usp=sharing'>linked presentation slides</a>.</p>
+
+		<h1>Acknowledgments</h1>
+		<ul>
+		  <li><a href='https://d3js.org/'>
+			D3: Data-Driven Documents</a>
+			by Mike Bostock is used for manipulating the DOM to create visualizations.
+		  </li>
+		  <li><a href='https://codepo8.github.io/css-fork-on-github-ribbon/#'>
+			Pure CSS responsive 'Fork me on GitHub' ribbon</a>
+			by Chris Heilmann is used to create the banner that links back to the source code repository.
+		  </li>
+		  <li><a href="https://bost.ocks.org/mike/chart/">Towards Reusable Charts</a>
+		  by Mike Bostock is used to encapsulate the tables and scatterplot chart.</li>
+		  <li><a href="http://bl.ocks.org/biovisualize/1223510">Brush selection on a table</a>
+		  by Chris Viau where we learned something about how to brush on a table.</li>
+		</ul>
+	</div>
+
+	<!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
+	<script src='lib/d3.v6.1.1/d3.min.js'></script>
+	<script src='js/singletable.js'></script>
+	<script src='js/scatterplot.js'></script>
+	<script src='js/table.js'></script>
+	<script src='js/visualization.js'></script>
 </body>
 
 </html>
