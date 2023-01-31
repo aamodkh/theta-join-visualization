@@ -1,6 +1,6 @@
 # Visualizing Ranked Theta-Join Results
 
-Link to GitHub pages website: https://ak53amod.github.io/theta-join-visualization
+Link to GitHub pages website: https://aamodkh.github.io/theta-join-visualization
 
 # Instructions
 The project is live at the link provided above. If you are interested on running it locally, please run the setup steps below.
